@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doação Solidária - Doe objetos e mude vidas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .donation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1073&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .category-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        #progressBar {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header/Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-hands-helping text-blue-500 text-2xl"></i>
+                <a href="#" class="text-xl font-bold text-blue-600">Doação Solidária</a>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="text-gray-700 hover:text-blue-600">Início</a>
+                <a href="#how-it-works" class="text-gray-700 hover:text-blue-600">Como Funciona</a>
+                <a href="#donate" class="text-gray-700 hover:text-blue-600">Doar</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-blue-600">Depoimentos</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600">Contato</a>
+            </div>
+            <button class="md:hidden text-gray-700" id="mobileMenuButton">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white w-full px-4 py-2 shadow-md" id="mobileMenu">
+            <a href="#home" class="block py-2 text-gray-700 hover:text-blue-600">Início</a>
+            <a href="#how-it-works" class="block py-2 text-gray-700 hover:text-blue-600">Como Funciona</a>
+            <a href="#donate" class="block py-2 text-gray-700 hover:text-blue-600">Doar</a>
+            <a href="#testimonials" class="block py-2 text-gray-700 hover:text-blue-600">Depoimentos</a>
+            <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600">Contato</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Doe o que não usa, mude uma vida</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Conectamos doadores a pessoas e instituições que precisam de objetos usados em bom estado.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#donate" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    <i class="fas fa-gift mr-2"></i> Quero Doar
+                </a>
+                <a href="#how-it-works" class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-6 rounded-lg transition duration-300">
+                    <i class="fas fa-question-circle mr-2"></i> Como Funciona
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-blue-600 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl font-bold mb-2" id="donationsCount">0</div>
+                    <p class="text-xl">Doações Realizadas</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold mb-2" id="peopleHelped">0</div>
+                    <p class="text-xl">Pessoas Ajudadas</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold mb-2" id="institutions">0</div>
+                    <p class="text-xl">Instituições Parceiras</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Como Funciona</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-box-open text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">1. Escolha o que doar</h3>
+                    <p class="text-gray-600">Selecione objetos em bom estado que você não usa mais mas podem ser úteis para outras pessoas.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">2. Cadastre sua doação</h3>
+                    <p class="text-gray-600">Preencha nosso formulário com detalhes sobre os itens e fotos se possível.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-truck text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">3. Entregamos ou buscamos</h3>
+                    <p class="text-gray-600">Você pode levar até um ponto de coleta ou agendar a retirada em sua casa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section id="donate" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">O que você quer doar?</h2>
+            
+            <!-- Category Filter -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button class="category-btn px-4 py-2 rounded-full border border-gray-300 hover:bg-blue-600 hover:text-white transition" data-category="all">
+                    Todos
+                </button>
+                <button class="category-btn px-4 py-2 rounded-full border border-gray-300 hover:bg-blue-600 hover:text-white transition" data-category="clothing">
+                    Roupas
+                </button>
+                <button class="category-btn px-4 py-2 rounded-full border border-gray-300 hover:bg-blue-600 hover:text-white transition" data-category="furniture">
+                    Móveis
+                </button>
+                <button class="category-btn px-4 py-2 rounded-full border border-gray-300 hover:bg-blue-600 hover:text-white transition" data-category="electronics">
+                    Eletrônicos
+                </button>
+                <button class="category-btn px-4 py-2 rounded-full border border-gray-300 hover:bg-blue-600 hover:text-white transition" data-category="books">
+                    Livros
+                </button>
+                <button class="category-btn px-4 py-2 rounded-full border border-gray-300 hover:bg-blue-600 hover:text-white transition" data-category="toys">
+                    Brinquedos
+                </button>
+            </div>
+            
+            <!-- Donation Items Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="donationItems">
+                <!-- Items will be loaded here via JavaScript -->
+            </div>
+            
+            <!-- Donation Form -->
+            <div class="max-w-3xl mx-auto mt-16 bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6 text-center">Cadastrar Doação</h3>
+                <form id="donationForm" class="space-y-6">
+                    <div>
+                        <label for="itemName" class="block text-gray-700 mb-2">Nome do Item</label>
+                        <input type="text" id="itemName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                    </div>
+                    
+                    <div>
+                        <label for="itemCategory" class="block text-gray-700 mb-2">Categoria</label>
+                        <select id="itemCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="clothing">Roupas</option>
+                            <option value="furniture">Móveis</option>
+                            <option value="electronics">Eletrônicos</option>
+                            <option value="books">Livros</option>
+                            <option value="toys">Brinquedos</option>
+                            <option value="other">Outros</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="itemDescription" class="block text-gray-700 mb-2">Descrição</label>
+                        <textarea id="itemDescription" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="itemCondition" class="block text-gray-700 mb-2">Estado do Item</label>
+                        <select id="itemCondition" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            <option value="">Selecione o estado</option>
+                            <option value="new">Novo</option>
+                            <option value="excellent">Excelente</option>
+                            <option value="good">Bom</option>
+                            <option value="used">Usado</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="itemPhoto" class="block text-gray-700 mb-2">Foto do Item (opcional)</label>
+                        <input type="file" id="itemPhoto" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" accept="image/*">
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                            <i class="fas fa-paper-plane mr-2"></i> Enviar Doação
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Depoimentos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Carlos Silva</h4>
+                            <p class="text-sm text-gray-500">Doador</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Doar meus móveis usados foi tão fácil! Em poucos dias uma família carente veio buscar e ficou muito feliz. Recomendo a todos!"</p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Ana Paula</h4>
+                            <p class="text-sm text-gray-500">Beneficiária</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Recebi livros para meus filhos e roupas em ótimo estado. Isso fez uma grande diferença no nosso orçamento familiar. Muito obrigada!"</p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Roberto Almeida</h4>
+                            <p class="text-sm text-gray-500">Voluntário</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Participar como voluntário nesse projeto tem sido incrível. Ver a felicidade das pessoas ao receberem as doações não tem preço."</p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-12 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Quer receber nossas novidades?</h2>
+            <p class="mb-6 max-w-2xl mx-auto">Cadastre-se para receber informações sobre campanhas de doação e histórias de impacto.</p>
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Seu melhor e-mail" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button type="submit" class="bg-blue-800 hover:bg-blue-900 px-6 py-3 rounded-r-lg font-semibold transition duration-300">
+                    Assinar
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Entre em Contato</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Informações de Contato</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-blue-600 mt-1 mr-4"></i>
+                            <p>Rua das Doações, 123 - Centro<br>São Paulo/SP - CEP 01001-000</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-blue-600 mr-4"></i>
+                            <p>(11) 1234-5678</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-600 mr-4"></i>
+                            <p>contato@doacaosolidaria.org.br</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-blue-600 mr-4"></i>
+                            <p>Segunda a Sexta: 9h às 18h</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">Nos siga nas redes sociais</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Envie uma mensagem</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="contactName" class="block text-gray-700 mb-2">Seu Nome</label>
+                            <input type="text" id="contactName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="contactEmail" class="block text-gray-700 mb-2">Seu E-mail</label>
+                            <input type="email" id="contactEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="contactSubject" class="block text-gray-700 mb-2">Assunto</label>
+                            <input type="text" id="contactSubject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="contactMessage" class="block text-gray-700 mb-2">Mensagem</label>
+                            <textarea id="contactMessage" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="h-96 w-full bg-gray-200">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.075426745292!2d-46.65342658440771!3d-23.56573436763803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%201000%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001310-100!5e0!3m2!1spt-BR!2sbr!4v1623860123456!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-hands-helping text-blue-400 mr-2"></i> Doação Solidária
+                    </h3>
+                    <p class="text-gray-400">Conectando doadores a quem precisa desde 2015. Juntos podemos fazer a diferença!</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links Úteis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Termos de Uso</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Seja um Voluntário</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Pontos de Coleta</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categorias</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Roupas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Móveis</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Eletrônicos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Livros</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Brinquedos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Assine para receber nossas atualizações.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Seu e-mail" class="px-3 py-2 text-gray-800 rounded-l focus:outline-none w-full">
+                        <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 Doação Solidária. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Donation Modal -->
+    <div id="donationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold" id="modalItemName"></h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <img id="modalItemImage" src="" alt="" class="w-full h-48 object-cover rounded-lg mb-4">
+                <p class="text-gray-600 mb-2"><span class="font-semibold">Categoria:</span> <span id="modalItemCategory"></span></p>
+                <p class="text-gray-600 mb-2"><span class="font-semibold">Estado:</span> <span id="modalItemCondition"></span></p>
+                <p class="text-gray-600 mb-4" id="modalItemDescription"></p>
+                <button id="requestItemBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                    <i class="fas fa-hand-holding-heart mr-2"></i> Solicitar este item
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg max-w-md w-full mx-4 p-6 text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check text-green-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Doação Cadastrada!</h3>
+            <p class="text-gray-600 mb-4">Sua doação foi registrada com sucesso. Em breve entraremos em contato para combinar a entrega.</p>
+            <button id="closeSuccessModal" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Animate stats counters
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Initialize stats when section is in view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateValue('donationsCount', 0, 1243, 2000);
+                    animateValue('peopleHelped', 0, 3562, 2000);
+                    animateValue('institutions', 0, 87, 2000);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, {threshold: 0.5});
+
+        const statsSection = document.querySelector('#how-it-works');
+        statsObserver.observe(statsSection);
+
+        // Sample donation items data
+        const donationItems = [
+            {
+                id: 1,
+                name: "Sofá de 3 lugares",
+                category: "furniture",
+                description: "Sofá em ótimo estado, apenas alguns sinais de uso. Cor bege.",
+                condition: "Bom",
+                image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                id: 2,
+                name: "Vestidos tamanho M",
+                category: "clothing",
+                description: "5 vestidos em bom estado, vários modelos e cores.",
+                condition: "Bom",
+                image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+            },
+            {
+                id: 3,
+                name: "Notebook Dell",
+                category: "electronics",
+                description: "Notebook Dell Inspiron, i5, 8GB RAM, 256GB SSD. Funcionando perfeitamente.",
+                condition: "Excelente",
+                image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80"
+            },
+            {
+                id: 4,
+                name: "Coleção de Livros",
+                category: "books",
+                description: "20 livros de diversos gêneros: ficção, autoajuda, biografias.",
+                condition: "Bom",
+                image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+            },
+            {
+                id: 5,
+                name: "Bicicleta Infantil",
+                category: "toys",
+                description: "Bicicleta para criança de 5-8 anos, com rodinhas auxiliares.",
+                condition: "Bom",
+                image: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1022&q=80"
+            },
+            {
+                id: 6,
+                name: "Microondas Panasonic",
+                category: "electronics",
+                description: "Microondas 20L, funcionando perfeitamente. Alguns arranhões externos.",
+                condition: "Bom",
+                image: "https://images.unsplash.com/photo-1616200410304-4d60aed55a7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+            }
+        ];
+
+        // Render donation items
+        function renderDonationItems(category = 'all') {
+            const container = document.getElementById('donationItems');
+            container.innerHTML = '';
+            
+            const filteredItems = category === 'all' 
+                ? donationItems 
+                : donationItems.filter(item => item.category === category);
+            
+            if (filteredItems.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 col-span-3 text-center py-10">Nenhum item encontrado nesta categoria.</p>';
+                return;
+            }
+            
+            filteredItems.forEach(item => {
+                const categoryNames = {
+                    'clothing': 'Roupas',
+                    'furniture': 'Móveis',
+                    'electronics': 'Eletrônicos',
+                    'books': 'Livros',
+                    'toys': 'Brinquedos'
+                };
+                
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg overflow-hidden shadow-md donation-card transition duration-300';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">${item.name}</h3>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">${categoryNames[item.category]}</span>
+                            <span class="text-sm text-gray-600">${item.condition}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">${item.description}</p>
+                        <button class="view-details-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300" 
+                                data-id="${item.id}">
+                            <i class="fas fa-eye mr-2"></i> Ver Detalhes
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Add event listeners to detail buttons
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    const item = donationItems.find(i => i.id === itemId);
+                    
+                    if (item) {
+                        document.getElementById('modalItemName').textContent = item.name;
+                        document.getElementById('modalItemImage').src = item.image;
+                        document.getElementById('modalItemImage').alt = item.name;
+                        
+                        const categoryNames = {
+                            'clothing': 'Roupas',
+                            'furniture': 'Móveis',
+                            'electronics': 'Eletrônicos',
+                            'books': 'Livros',
+                            'toys': 'Brinquedos'
+                        };
+                        
+                        document.getElementById('modalItemCategory').textContent = categoryNames[item.category];
+                        document.getElementById('modalItemCondition').textContent = item.condition;
+                        document.getElementById('modalItemDescription').textContent = item.description;
+                        
+                        document.getElementById('donationModal').classList.remove('hidden');
+                    }
+                });
+            });
+        }
+
+        // Initialize with all items
+        renderDonationItems();
+
+        // Category filter buttons
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-blue-600', 'text-white');
+                    b.classList.add('border', 'border-gray-300');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active', 'bg-blue-600', 'text-white');
+                this.classList.remove('border', 'border-gray-300');
+                
+                // Filter items
+                const category = this.getAttribute('data-category');
+                renderDonationItems(category);
+            });
+        });
+
+        // Modal close button
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('donationModal').classList.add('hidden');
+        });
+
+        // Request item button
+        document.getElementById('requestItemBtn').addEventListener('click', function() {
+            alert('Obrigado pelo interesse! Em breve entraremos em contato para combinar a entrega.');
+            document.getElementById('donationModal').classList.add('hidden');
+        });
+
+        // Donation form submission
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would normally send the data to a server
+            // For demo purposes, we'll just show a success message
+            
+            // Reset form
+            this.reset();
+            
+            // Show success modal
+            document.getElementById('successModal').classList.remove('hidden');
+        });
+
+        // Close success modal
+        document.getElementById('closeSuccessModal').addEventListener('click', function() {
+            document.getElementById('successModal').classList.add('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
